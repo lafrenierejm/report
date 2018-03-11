@@ -14,6 +14,13 @@
 
 \usepackage{booktabs} % For formal tables
 
+% Macros
+\makeatletter % changes the catcode of '@' to 11
+\newcommand\etal{et al\@ifnextchar.{}{.\@}}
+\newcommand\etc{etc\@ifnextchar.{}{.\@}}
+\newcommand\ie{i.e.\@}
+\newcommand\eg{e.g.\@}
+\makeatother % restores the catcode of '@' to 12
 
 % Copyright
 %\setcopyright{none}
