@@ -10,27 +10,27 @@ This phase aims to augment the PIT mutation testing tool by implementing three n
 \item
   Arithmetic Operator Deletion (AOD):
   Replaces an arithmetic expression by each one of the operands.
-  For example, \texttt{a + b} is mutated to both \texttt{a} and \texttt{b}.
+  For example, \java{a + b} is mutated to both \java{a} and \java{b}.
 \item
   Relational Operator Replacement (ROR):
   Replaces the relational operators with each of the other ones.
-  For example, \texttt{<} is mutated to each of \texttt{>}, \texttt{>=}, \texttt{==}, \texttt{<=}, and \texttt{!=}.
+  For example, \java{<} is mutated to each of \java{>}, \java{>=}, \java{==}, \java{<=}, and \java{!=}.
 \item
   Arithmetic Operator Replacement (AOR):
   Replaces an arithmetic expression by each of the other ones.
-  For example, \texttt{a + b} is mutated to each of \texttt{a - b}, \texttt{a * b}, \texttt{a / b}, and \texttt{a \% b}.
+  For example, \java{a + b} is mutated to each of \java{a - b}, \java{a * b}, \java{a / b}, and \java{a \% b}.
 \end{itemize}
 
 The second phase of the project will be delivered 2018-04-28.  This phase will add four additional mutators to PIT:
 \begin{itemize}
 \item
   M1:
-  For each object field dereference, add a conditional checker to perform the check only when the object exists (\ie{} is not \texttt{null}).
+  For each object field dereference, add a conditional checker to perform the check only when the object exists (\ie{} is not \java{null}).
 \item
   M2:
   Replace a method with another overloading method or overloading constructor.
   If the method or constructor has fewer arguments, use a subset of the arguments.
-  If there are more arguments in the overloaded method, add \texttt{null} or a default value as the additional argument values.
+  If there are more arguments in the overloaded method, add \java{null} or a default value as the additional argument values.
   One possible improvement is to shuffle the extra argument among the set.
 \item
   M3:
