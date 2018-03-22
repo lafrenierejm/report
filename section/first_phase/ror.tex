@@ -1,1 +1,26 @@
 \subsection{Relational Operator Replacement}
+
+\begin{table}
+  \centering
+  \begin{tabular}{l l l l l l l}
+    \toprule
+              & \multicolumn{6}{c}{Replacement}                                                         \\
+    \cmidrule(r){2-7}
+    Original  & \java{>}     & \java{>=}    & \java{==}    & \java{<=}    & \java{<}     & \java{!=}    \\
+    \midrule
+    \java{>}  &              & \checkmark{} & \checkmark{} & \checkmark{} & \checkmark{} & \checkmark{} \\
+    \java{>=} & \checkmark{} &              & \checkmark{} & \checkmark{} & \checkmark{} & \checkmark{} \\
+    \java{==} & \checkmark{} & \checkmark{} &              & \checkmark{} & \checkmark{} & \checkmark{} \\
+    \java{<=} & \checkmark{} & \checkmark{} & \checkmark{} &              & \checkmark{} & \checkmark{} \\
+    \java{<}  & \checkmark{} & \checkmark{} & \checkmark{} & \checkmark{} &              & \checkmark{} \\
+    \java{!=} & \checkmark{} & \checkmark{} & \checkmark{} & \checkmark{} & \checkmark{} &              \\
+    \bottomrule
+  \end{tabular}
+  \caption[ROR mutations]{Relational operator replacement mutations}
+  \label{tab:ror:src_ops}
+\end{table}
+
+The relational operator replacement (ROR) mutator performs bytecode mutations equivalent to the source code mutations listed in Table~\ref{tab:ror:src_ops}.
+Each of the source-level ordered inequality operators (\java{>}, \java{>=}, \java{==}, \java{<=}, and \java{<}) has two corresponding bytecode opcodes, one that has two operands and one that compares a single operand to the zero value.
+For example, the \java{!=} operator in source code can be compiled to the opcode \path{IF_ICMPNE} or \path{IFNE} that check for inequality between two operands and check for inequality between a single operand and zero, respectively.
+The ROR mutator must use all of the bytecode-level ordered inequality operators in its implementation of \java{MethodVisitor}.
