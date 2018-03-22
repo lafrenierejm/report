@@ -15,6 +15,9 @@ However, the current AOD implementation recursively returns \java{a}, \java{b}, 
 Adding handling of consecutive arithmetic operations may be considered for future improvements, but at the moment we do not see the significance of these mutations;
 they will add more mutations to evaluate the tests but might not give better evaluation.
 
+\subsection{Grouping The Implemented Mutations}
+To register the mutations, we have to add them to Mutator.java. For AOD and AOR, this is not a problem. However for ROR, we need to test them invididually and split the enum of ROR into several parts. It is possible to group all the ENUM into one class so we do not have to add many mutations to the pom.xml files of test projects.
+
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "../report"
