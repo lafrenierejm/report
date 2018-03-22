@@ -1,1 +1,35 @@
 \subsection{Arithmetic Operator Deletion}
+The structure of a simple operation with two operands looks like this:
+An example is: 
+\begin{itemize}
+\item IADD
+\item ILOAD 2
+\item ILOAD 1
+\end{itemize}
+
+Note that if we use the bytecode analysis tool in eclipse, the stack will be inverted. The first operation is removing the operator by using POP or POP2. 
+
+To pick the first operator, we simply use POP until we get to the first operator. For double-word operands and double-word operators, we use POP2.To keep the second operand while removing the first operator, we have to use SWAP and then POP. However, this only works for single-word operands (int and float). For double-word operands, we do not have SWAP2 in ASM framework. Therefore, we have to combine DUP2\_X2 and POP2. Here's how the operation works:
+
+\begin{itemize}
+\item LLOAD 1 - word 1
+\item LLOAD 1 - word 2
+\item LLOAD 2 - word 1
+\item LLOAD 2 - word 2
+\end{itemize}
+
+After using DUP2\_x2, we have:
+\begin{itemize}
+\item LLOAD 1 - word 1
+\item LLOAD 1 - word 2
+\item LLOAD 2 - word 1
+\item LLOAD 2 - word 2
+\item LLOAD 1 - word 1
+\item LLOAD 1 - word 2
+\end{itemize}
+
+Then, using POP2 twice, we are left with 
+\begin{itemize}
+\item LLOAD 1 - word 1
+\item LLOAD 1 - word 2
+\end{itemize}
