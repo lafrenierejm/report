@@ -30,14 +30,14 @@ The following projects were used for testing the added mutators:
   commit e5a580cafde7da8d12f0203961b8323cd09797f9
 \end{itemize}
 
-\section{Notable Problems}
-\subsection{AOD With More Than Two Operands}
+\subsection{Notable Problems}
+\subsubsection{AOD With More Than Two Operands}
 In an expression such as \java{a + b + c}, it is possible to apply AOD mutation to retain \java{a + b} and \java{c}; \java{b + c} and \java{a}; and \java{a + c} and \java{b}.
 However, the current AOD implementation recursively returns \java{a}, \java{b}, \java{c} operands separately.
 Adding handling of consecutive arithmetic operations may be considered for future improvements, but at the moment we do not see the significance of these mutations;
 they will add more mutations to evaluate the tests but might not give better evaluation.
 
-\subsection{Grouping the Mutators}
+\subsubsection{Grouping the Added Mutators}
 To register the mutations, we have to add them to \path{Mutator.java}.
 This is trivial for AOD and AOR.
 However for ROR, we need to test each mutator individually and split the enum of ROR into several parts.
