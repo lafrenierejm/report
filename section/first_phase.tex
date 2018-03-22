@@ -18,6 +18,12 @@ they will add more mutations to evaluate the tests but might not give better eva
 \subsection{Grouping The Implemented Mutations}
 To register the mutations, we have to add them to Mutator.java. For AOD and AOR, this is not a problem. However for ROR, we need to test them invididually and split the enum of ROR into several parts. It is possible to group all the ENUM into one class so we do not have to add many mutations to the pom.xml files of test projects.
 
+\subsection{Grouping the Mutators}
+To register the mutations, we have to add them to \path{Mutator.java}.
+This is trivial for AOD and AOR.
+However for ROR, we need to test each mutator individually and split the enum of ROR into several parts.
+It is possible to group all the enums into one class so we do not have to add many mutations to the \path{pom.xml} files of test projects.
+
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "../report"
