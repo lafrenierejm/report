@@ -28,3 +28,38 @@ The ROR mutator must use all of the bytecode-level ordered inequality operators 
 Other implementations of ROR mutators manually list every replacement opcode for every source-level relational operator~\cite{ProdigyXable}.
 This results in a large amount of code duplication, much of which is unavoidable due to the \java{Map} returned being \java{static}.
 However, we were able to reduce the number of changes required between each implementation by storing the bytecode relational operators in enums and iterating over those operators, adding to the \java{Map} only when the loop's current opcode is not the opcode being replaced.
+Listing~\ref{lst:ror:enum} shows an excerpt of the enumeration of the zero-comparing opcodes.
+
+\begin{lstlisting}[%
+  language=Java,
+  frame=tb,
+  caption={%
+    enum excerpt from the ROR mutator.
+    The \java{Opcodes} enum is imported from the package \java{org.objectweb.asm.Opcodes}.
+  },
+  captionpos=b,
+  label={lst:ror:enum}]
+enum OpcodeCompareToZero {
+  IFEQ(Opcodes.IFEQ) {
+    public String toString() {
+      return "==";
+    }
+  },
+  // ...
+  IFNE(Opcodes.IFNE) {
+    public String toString() {
+      return "!=";
+    }
+  };
+
+  private final int opcode;
+
+  OpcodeCompareToZero(int opcode) {
+    this.opcode = opcode;
+  }
+
+  public int getOpcode() {
+    return this.opcode;
+  }
+}
+\end{lstlisting}
