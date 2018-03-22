@@ -29,6 +29,7 @@ Other implementations of ROR mutators manually list every replacement opcode for
 This results in a large amount of code duplication, much of which is unavoidable due to the \java{Map} returned being \java{static}.
 However, we were able to reduce the number of changes required between each implementation by storing the bytecode relational operators in enums and iterating over those operators, adding to the \java{Map} only when the loop's current opcode is not the opcode being replaced.
 Listing~\ref{lst:ror:enum} shows an excerpt of the enumeration of the zero-comparing opcodes.
+Listing~\ref{lst:ror:MethodVisitor} shows one of the enum iterations from the ROR mutator's \java{MethodVisitor}.
 
 \begin{lstlisting}[%
   language=Java,
@@ -60,6 +61,33 @@ enum OpcodeCompareToZero {
 
   public int getOpcode() {
     return this.opcode;
+  }
+}
+\end{lstlisting}
+
+\begin{lstlisting}[%
+  language=Java,
+  frame=tb,
+  caption={%
+    Excerpt of the implementation of \java{MethodVisitor} for the ROR mutator.
+    The value of \java{REPLACEMENT_OP} has been previously declared to be an opcode.
+  },
+  captionpos=b,
+  label={lst:ror:MethodVisitor}]
+// The operands will seem to be in the wrong
+// order when used in else conditions.
+// To the bytecode parser, though, this is
+// not the case.
+for (OpcodeCompareToZero original
+    : OpcodeCompareToZero.values()) {
+  if (REPLACEMENT_OP != original) {
+    MUTATIONS.put(
+      original.getOpcode(),
+      new Substitution(
+        REPLACEMENT_OP.getOpcode(),
+        "Relational operator replacement: "
+        + "Mutated " + original
+        + " to " + REPLACEMENT_OP));
   }
 }
 \end{lstlisting}
