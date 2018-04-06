@@ -2,18 +2,16 @@
 
 \begin{table}
   \centering
-  \begin{tabular}{l l l l l l l}
+  \begin{tabular}{c c}
     \toprule
-              & \multicolumn{6}{c}{Replacement}                                                         \\
-    \cmidrule(r){2-7}
-    Original  & \java{>}     & \java{>=}    & \java{==}    & \java{<=}    & \java{<}     & \java{!=}    \\
+    Original Operator & Mutated Operators                                                        \\
     \midrule
-    \java{>}  &              & \checkmark{} & \checkmark{} & \checkmark{} & \checkmark{} & \checkmark{} \\
-    \java{>=} & \checkmark{} &              & \checkmark{} & \checkmark{} & \checkmark{} & \checkmark{} \\
-    \java{==} & \checkmark{} & \checkmark{} &              & \checkmark{} & \checkmark{} & \checkmark{} \\
-    \java{<=} & \checkmark{} & \checkmark{} & \checkmark{} &              & \checkmark{} & \checkmark{} \\
-    \java{<}  & \checkmark{} & \checkmark{} & \checkmark{} & \checkmark{} &              & \checkmark{} \\
-    \java{!=} & \checkmark{} & \checkmark{} & \checkmark{} & \checkmark{} & \checkmark{} &              \\
+    \java{>}          & \phantom{\java{>},} \java{>=}, \java{==}, \java{<=}, \java{<}, \java{!=} \\
+    \java{>=}         & \java{>}, \phantom{\java{>=},} \java{==}, \java{<=}, \java{<}, \java{!=} \\
+    \java{==}         & \java{>}, \java{>=}, \phantom{\java{==},} \java{<=}, \java{<}, \java{!=} \\
+    \java{<=}         & \java{>}, \java{>=}, \java{==}, \phantom{\java{<=},} \java{<}, \java{!=} \\
+    \java{<}          & \java{>}, \java{>=}, \java{==}, \java{<=}, \phantom{\java{<},} \java{!=} \\
+    \java{!=}         & \java{>}, \java{>=}, \java{==}, \java{<=}, \java{<}\phantom{, \java{!=}} \\
     \bottomrule
   \end{tabular}
   \caption[ROR mutations]{Relational operator replacement mutations}
