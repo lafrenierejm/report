@@ -21,21 +21,22 @@ The mutation operator Arithmetic Operator Replacement (AOR) replaces basic arith
 
 In Phase One of this project, all missing AOR mutators are implemented. The entire replacements available in augmented PIT are summarized in below table.\\
 
-\begin{tabular}{|c|c|}
-	\hline
-	Original Operator & Mutated Operators\\
-	\hline
-    + & -, *, /, \% \\
-	\hline
-    - & +, *, /, \%\\
-	\hline
-    * & +, -, /, \%\\
-	\hline
-    / & +, -, *, \%\\
-	\hline
-    \% & +, -, *, /\\
-	\hline
-\end{tabular}\\
+\begin{table}
+  \centering
+  \begin{tabular}{c c}
+    \toprule
+    Original Operator & Mutated Operators                                           \\
+    \midrule
+    \java{+}          & \phantom{\java{+},} \java{-}, \java{*}, \java{/}, \java{\%} \\
+    \java{-}          & \java{+}, \phantom{\java{-},} \java{*}, \java{/}, \java{\%} \\
+    \java{*}          & \java{+}, \java{-}, \phantom{\java{*},} \java{/}, \java{\%} \\
+    \java{/}          & \java{+}, \java{-}, \java{*}, \phantom{\java{/},} \java{\%} \\
+    \java{\%}         & \java{+}, \java{-}, \java{*}, \java{/}\phantom{, \java{\%}} \\
+    \bottomrule
+  \end{tabular}
+  \caption[AOR mutations]{Arithmetic operator replacement mutations}
+  \label{tab:aor:src_ops}
+\end{table}
 
 We have implemented integer, double, float and long versions of above arithmetic mutators.
 
