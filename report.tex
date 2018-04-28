@@ -19,6 +19,13 @@
 %% Java
 \lstnewenvironment{java}{\lstset{language=java}}{}
 \renewcommand{\java}[1]{\lstinline[columns=fixed,language=java]{#1}}
+%% JVM
+\newcommand{\jvm}[1]{%
+  \lstinline[
+    columns=fixed,%
+    language={},%
+  ]{#1}
+}
 
 % Macros
 \makeatletter % changes the catcode of '@' to 11
