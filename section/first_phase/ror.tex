@@ -50,13 +50,8 @@ However, we were able to reduce the number of changes required between each impl
 Listing~\ref{lst:ror:enum} shows an excerpt of the enumeration of the zero-comparing opcodes.
 Listing~\ref{lst:ror:MethodVisitor} shows one of the enum iterations from the ROR mutator's \java{MethodVisitor}.
 
-\begin{lstlisting}[%
-  language=Java,
-  frame=tb,
-  caption={%
-    Excerpt of \java{enum} Declaration for ROR
-  },
-  captionpos=b,
+\begin{Java}[%
+  caption={Excerpt of \java{enum} Declaration for ROR},
   label={lst:ror:enum}]
 enum OpcodeCompareToZero {
   IFEQ(Opcodes.IFEQ) {
@@ -81,15 +76,10 @@ enum OpcodeCompareToZero {
     return this.opcode;
   }
 }
-\end{lstlisting}
+\end{Java}
 
-\begin{lstlisting}[%
-  language=Java,
-  frame=tb,
-  caption={%
-    Excerpt of ROR's \java{MethodVisitor}
-  },
-  captionpos=b,
+\begin{Java}[%
+  caption={Excerpt of ROR's \java{MethodVisitor}},
   label={lst:ror:MethodVisitor}]
 // The operands will seem to be in the wrong
 // order when used in else conditions.
@@ -107,4 +97,4 @@ for (OpcodeCompareToZero original
         + " to " + REPLACEMENT_OP));
   }
 }
-\end{lstlisting}
+\end{Java}
