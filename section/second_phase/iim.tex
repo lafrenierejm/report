@@ -1,0 +1,77 @@
+\subsection{Increments Increments Mutator}
+\textbf{Existing work}\newline
+\textbf{Increments Mutator}\newline
+The increments mutator will mutate increments, decrements and assignment increments and decrements of local variables (stack variables). It will replace increments with decrements and vice versa. This mutator is Active by default. Also the increments mutator will be applied to increments of local variables only.\newline
+
+
+For example, \newline
+\begin{lstlisting}[%
+  language=Java,
+  label={lst:iim:inctodec1}]
+public int method(int i) {
+  i++;
+  return i;
+}
+\end{lstlisting}
+
+will be mutated to \newline
+
+\begin{lstlisting}[%
+  language=Java,
+  label={lst:iim:inctodec2}]
+public int method(int i) {
+  i--;
+  return i;
+}
+\end{lstlisting}
+\textbf{Remove Increments Mutator}\newline
+The remove increments mutator removes local variable increments. This mutator is an optional mutator and will be applied to increments of local variables only.\newline
+
+
+For example, \newline
+\begin{lstlisting}[%
+  language=Java,
+  label={lst:iim:inctodec1}]
+public int method(int i) {
+  i++;
+  return i;
+}
+\end{lstlisting}
+
+will be mutated to \newline
+
+\begin{lstlisting}[%
+  language=Java,
+  label={lst:iim:inctodec2}]
+public int method(int i) {
+  //i;
+  return i;
+}
+\end{lstlisting}
+
+\textbf{Augmentation}\newline
+\textbf{Increments Increments Mutator}\newline
+The increments increments mutator increments local variable increments. This mutator is an optional mutator and will be applied to increments of local variables only.\newline
+
+
+For example, \newline
+\begin{lstlisting}[%
+  language=Java,
+  label={lst:iim:inctodec1}]
+public int method(int i) {
+  i++;
+  return i;
+}
+\end{lstlisting}
+
+will be mutated to \newline
+
+\begin{lstlisting}[%
+  language=Java,
+  label={lst:iim:inctodec2}]
+public int method(int i) {
+  i+=2;
+  return i;
+}
+\end{lstlisting}
+
