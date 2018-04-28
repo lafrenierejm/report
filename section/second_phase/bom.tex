@@ -1,0 +1,21 @@
+\subsection{Bitwise Operator Mutator}
+The mutation operator Bitwise Operator Mutator (BOM) replaces basic bitwise operators with other bitwise operators. 
+In Phase Two of this project, all bitwise operator mutators are implemented.
+The entire replacements available in augmented PIT are summarized in Table~\ref{tab:bom:src_ops}. Our implementation of BOM supports \java{int} and \java{long} operands.
+
+\begin{table}
+  \centering
+  \begin{tabular}{c c}
+    \toprule
+    Original Operator & Mutated Operators                                           \\
+    \midrule
+    \java{&}          & \phantom{\java{&},} \java{|}, \java{^} \\
+    \java{|}          & \java{&}, \phantom{\java{|},} \java{^} \\
+    \java{^}          & \java{&}, \java{|}, \phantom{\java{^}} \\
+    \bottomrule
+  \end{tabular}
+  \caption[BOM mutations]{Bitwise Operator Mutations}
+  \label{tab:bom:src_ops}
+\end{table}
+
+
