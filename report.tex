@@ -17,8 +17,18 @@
 % Source code
 \usepackage{listingsutf8}
 %% Java
-\lstnewenvironment{java}{\lstset{language=java}}{}
-\renewcommand{\java}[1]{\lstinline[columns=fixed,language=java]{#1}}
+\lstnewenvironment{Java}{%
+  \lstset{%
+    columns=fixed,%
+    language=java,%
+  }
+}{}
+\newcommand{\java}[1]{%
+  \lstinline[%
+    columns=fixed,%
+    language=java
+  ]{#1}
+}
 %% JVM
 \newcommand{\jvm}[1]{%
   \lstinline[
