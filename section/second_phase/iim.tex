@@ -7,7 +7,7 @@ The increments mutator will mutate increments, decrements and assignment increme
 For example, \newline
 \begin{lstlisting}[%
   language=Java,
-  label={lst:iim:inctodec1}]
+  label={lst:iim:inctodec}]
 public int method(int i) {
   i++;
   return i;
@@ -18,7 +18,7 @@ will be mutated to \newline
 
 \begin{lstlisting}[%
   language=Java,
-  label={lst:iim:inctodec2}]
+  label={lst:iim:dectoinc2}]
 public int method(int i) {
   i--;
   return i;
@@ -31,7 +31,7 @@ The remove increments mutator removes local variable increments. This mutator is
 For example, \newline
 \begin{lstlisting}[%
   language=Java,
-  label={lst:iim:inctodec1}]
+  label={lst:iim:reminc1}]
 public int method(int i) {
   i++;
   return i;
@@ -42,7 +42,7 @@ will be mutated to \newline
 
 \begin{lstlisting}[%
   language=Java,
-  label={lst:iim:inctodec2}]
+  label={lst:iim:reminc2}]
 public int method(int i) {
   //i;
   return i;
@@ -57,7 +57,7 @@ The increments increments mutator increments local variable increments. This mut
 For example, \newline
 \begin{lstlisting}[%
   language=Java,
-  label={lst:iim:inctodec1}]
+  label={lst:iim:incinc1}]
 public int method(int i) {
   i++;
   return i;
@@ -68,7 +68,7 @@ will be mutated to \newline
 
 \begin{lstlisting}[%
   language=Java,
-  label={lst:iim:inctodec2}]
+  label={lst:iim:incinc2}]
 public int method(int i) {
   i+=2;
   return i;
