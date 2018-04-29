@@ -55,6 +55,28 @@ If that jump is not performed then the execution is allowed to fall through to \
 A second label is placed immediately \textit{after} \ref{itm:m1:load default}.
 This label is jumped to unconditionally with a \jvm{GOTO} in \ref{itm:m1:return}.
 
+The branch in step~\ref{itm:m1:load default} occurs only in Java source of the M1 itself;
+there is not corresponding jump in the bytecode.
+The opcode used to load the default value onto the stack depends on the value of the \java{type} argument passed to \java{visitFieldInsn()}.
+The relationships between \java{type} and those opcodes are illustrated in Table~\ref{tab:m1:default opcode}.
+
+\begin{table}
+  \centering
+  \begin{tabular}{l l l}
+    \toprule
+    Value of \java{type} & Opcode & Loaded Value \\
+    \midrule
+    \java{"I"} & \jvm{ICONST_0} & \java{int} value 0 \\
+    \java{"F"} & \jvm{FCONST_0} & \java{float} value 0 \\
+    \java{"J"} & \jvm{LCONST_0} & \java{long} value 0 \\
+    \java{"D"} & \jvm{DCONST_0} & \java{double} value 0 \\
+    anything else & \jvm{ACONST_NULL} & \java{null} \\
+    \bottomrule
+  \end{tabular}
+  \caption{Mapping \java{type} to Default Values}
+  \label{tab:m1:default opcode}
+\end{table}
+
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "../../report"
