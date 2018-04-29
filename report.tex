@@ -17,13 +17,20 @@
 % lists
 \usepackage{enumitem}
 
+% colors
+\definecolor{diff delete}{HTML}{C43C55}
+\definecolor{diff add}{HTML}{14B03D}
+
 % Source code
 \usepackage{listingsutf8}
+\usepackage{lstautogobble}
+\usepackage{lstlinebgrd}
 %% Java
 %%% block
 \lstnewenvironment{Java}[1][]{%
   \lstset{%
-    columns=fixed,%
+    autogobble=true,%
+    columns=fullflexible,%
     language=java,%
     frame=tb,%
     captionpos=b,%
@@ -33,15 +40,16 @@
 %%% inline
 \newcommand{\java}[1]{%
   \lstinline[%
-    columns=fixed,%
-    language=java
+    columns=fullflexible,%
+    language=java,%
   ]{#1}%
 }
 %% JVM
 %%% block
 \lstnewenvironment{JVM}[1][]{%
   \lstset{%
-    columns=fixed,%
+    autogobble=true,%
+    columns=fullflexible,%
     language={},%
     frame=tb,%
     captionpos=b,%
@@ -51,7 +59,7 @@
 %%% inline
 \newcommand{\jvm}[1]{%
   \lstinline[
-    columns=fixed,%
+    columns=fullflexible,%
     language={},%
   ]{#1}%
 }
