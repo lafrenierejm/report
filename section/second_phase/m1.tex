@@ -1,0 +1,61 @@
+\subsection{M1: Check Null Mutator}
+M1, the Check Null Mutator, inserts null checks on objects prior to field access instructions.
+This has practical uses in generating fixes for unexpected \java{NullPointerException}s.
+
+The two opcodes that indicate a field access are \jvm{PUTFIELD} and \jvm{GETFIELD} which write to and read from an object's field, respectively.
+M1 executes those opcodes only if the object whose field they are accessing is not null.
+The general algorithm for our implementation of M1 is:
+\begin{enumerate}
+\item
+  Duplicate the objectref on top of the stack
+\item
+  Load a \java{null} reference onto the stack
+\item
+  Compare the references' equality
+\end{enumerate}
+\begin{minipage}[t]{0.45\linewidth}
+  If the references are the same (\ie{} \java{null}):
+  \begin{enumerate}[%
+    leftmargin=*,%
+    label={(\arabic*a)}
+    ]
+    \setcounter{enumi}{3}
+  \item
+    Skip the original opcode
+  \item
+    Pop the unneeded object reference from the stack
+  \item\label{itm:m1:load default}
+    If the original opcode was \jvm{GETFIELD}, load a default value onto the stack.
+  \item
+    Return to normal execution
+  \end{enumerate}
+\end{minipage}
+\hfill\vline\hfill
+\begin{minipage}[t]{0.5\linewidth}
+  If the references are \textit{not} the same (\ie{} are not \java{null}):
+  \begin{enumerate}[%
+    leftmargin=*,%
+    label={(\arabic*b)}
+    ]
+    \setcounter{enumi}{3}
+  \item\label{itm:m1:execute original}
+    Execute the original field access opcode
+  \item\label{itm:m1:return}
+    Return to normal execution
+  \end{enumerate}
+\end{minipage}
+
+\vspace*{2ex}
+
+M1's logic is implemented in \java{visitFieldInsn()}.
+Two labels are used in the implementation.
+The first is placed immediately prior to the opcodes implementing the (a) branch above.
+This label is jumped to conditionally with \jvm{IF_ACMPEQ}, whose arguments are a duplicate of the original object reference and a \java{null} reference.
+If that jump is not performed then the execution is allowed to fall through to \ref{itm:m1:execute original}.
+A second label is placed immediately \textit{after} \ref{itm:m1:load default}.
+This label is jumped to unconditionally with a \jvm{GOTO} in \ref{itm:m1:return}.
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../report"
+%%% End:
