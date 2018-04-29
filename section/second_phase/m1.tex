@@ -1,9 +1,66 @@
 \subsection{M1: Check Null Mutator}
 M1, the Check Null Mutator, inserts null checks on objects prior to field access instructions.
 This has practical uses in generating fixes for unexpected \java{NullPointerException}s.
-
 The two opcodes that indicate a field access are \jvm{PUTFIELD} and \jvm{GETFIELD} which write to and read from an object's field, respectively.
 M1 executes those opcodes only if the object whose field they are accessing is not null.
+
+\begin{Java}[%
+    linebackgroundcolor={%
+      \ifnum 0<\value{lstnumber} \color{white}\fi%
+      \ifnum 4=\value{lstnumber} \color{diff add}\fi%
+      % \ifnum 3<\value{lstnumber} \color{red}\fi,%
+    },%
+    caption={Sample Java With Simulated M1},%
+    label={lst:m1:java},%
+  ]
+  Rct r = new Rct(1, 2);
+  int width;
+
+  if (null != r)
+      width = r.width;
+\end{Java}
+
+\begin{Java}[%
+    linebackgroundcolor={%
+      \ifnum 0<\value{lstnumber} \color{white}\fi%
+      \ifnum 6=\value{lstnumber} \color{diff add}\fi%
+      \ifnum 7=\value{lstnumber} \color{diff add}\fi%
+      \ifnum 8=\value{lstnumber} \color{diff add}\fi%
+      \ifnum 9=\value{lstnumber} \color{diff add}\fi%
+      \ifnum 10=\value{lstnumber} \color{diff add}\fi%
+      \ifnum 14=\value{lstnumber} \color{diff add}\fi%
+      \ifnum 15=\value{lstnumber} \color{diff add}\fi%
+    },%
+    caption={ASMified Version of Listing~\ref{lst:m1:java}},%
+    label={lst:m1:jvm},%
+  ]
+  visitTypeInsn(NEW, "Rct");
+  visitInsn(DUP);
+  visitInsn(ICONST_1);
+  visitInsn(ICONST_2);
+  visitMethodInsn(INVOKESPECIAL... "<init>"...);
+  visitVarInsn(ASTORE, 1);
+  visitInsn(ACONST_NULL);
+  visitVarInsn(ALOAD, 1);
+  el l0 = new Label();
+  visitJumpInsn(IF_ACMPEQ, l0);
+  visitVarInsn(ALOAD, 1);
+  visitFieldInsn(GETFIELD, "Rct", "width", "I");
+  visitVarInsn(ISTORE, 2);
+  visitLabel(l0);
+  visitFrame(Opcodes.F_APPEND,1, ...);
+\end{Java}
+
+Listing~\ref{lst:m1:java} shows an excerpt of a sample Java program.
+\java{width} may be assumed to be a valid field in the \java{Rct} class.
+If one assumes that the lines with no background color are part of the original source code, the addition of the line highlighted in green demonstrates the Java equivalent of M1's bytecode manipulation.
+
+Listing~\ref{lst:m1:jvm} is an excerpt of an ASMified view of the class file compiled from Listing~\ref{lst:m1:java}'s source file.
+Here, the green highlight indicates lines resulting from the addition of the M1-imitating \java{null} check in Listing~\ref{lst:m1:java}.
+One interesting thing to note in this sample is the use of \jvm{ASTORE} and \jvm{ALOAD} to first store \java{r}'s object reference into a local variable (which pops the reference from the stack) and then load that same reference from that variable back onto the stack.
+This seems to be wasted effort, as the result of \jvm{IF_ACMPEQ} does not change based on the order of its operands;
+as such, our implementation of M1 does not use \jvm{ASTORE} or \jvm{ALOAD}, instead executing \jvm{ACONST_NULL} and \jvm{IF_ACMPEQ} in immediate succession.
+
 The general algorithm for our implementation of M1 is:
 \begin{enumerate}
 \item
